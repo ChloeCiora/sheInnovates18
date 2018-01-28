@@ -1,0 +1,18 @@
+body{
+
+	
+}
+
+.button{
+
+	border-radius: 50%;
+	-webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    color: purple;
+}
+
+.button:hover{
+
+	background-color: grey; /* Green */
+    color: white;
+}
