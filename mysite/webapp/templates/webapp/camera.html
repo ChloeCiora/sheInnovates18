@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>photo glot</title>
+  <link rel ="stylesheet" type="text/css" href="camerastyle.css"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+</head>
+<body>
+  <center>
+  <header class="w3-container w3-top w3-white w3-xlarge w3-padding-16">
+  <span class="w3-center w3-padding">Snap a Pic!</span>
+  <a href="http://127.0.0.1:8000/webapp" class="w3-right w3-button w3-white" onclick="w3_open()">☰</a>
+</header>
+
+<video id="video"></video>
+<button id="startbutton" class="button">Take photo</button>
+<canvas id="canvas"></canvas>
+<br/><br/>
+
+<a href="http://127.0.0.1:8000/webapp/gugle"><button class = "button">Let's go!!</button></a>
+</center>
+
+
+<style type="text/css">
+  
+  body{
+
+     font-family: "Raleway",sans-serif;
+     background-image: url("http://www.powerpointhintergrund.com/download/simple-backgrounds-pictures-wallpaper-cave-7777");
+
+  
+}
+
+.button{
+
+  border-radius: 50%;
+  -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    color: white;
+}
+
+.button:hover{
+
+  background-color: #ff6666; /* Green */
+    color: black;
+}
+</style>
+
+<!--<img id="photo" alt="photo">-->
+<script id="jsbin-javascript">
+ 
+
+
+(function() {
+
+  var streaming = false,
+      video        = document.querySelector('#video'),
+      canvas       = document.querySelector('#canvas'),
+      photo        = document.querySelector('#photo'),
+      startbutton  = document.querySelector('#startbutton'),
+      width = 320,
+      height = 0;
+
+
+  navigator.getMedia = ( navigator.getUserMedia ||
+                         navigator.webkitGetUserMedia ||
+                         navigator.mozGetUserMedia ||
+                         navigator.msGetUserMedia);
+
+  /*function convertCanvasToImage(canvas){
+    var image = new Image();
+    image.onload = function(){
+      callback(image);
+    }
+    image.src = canvas.toDataURL("image/png");
+    return image;
+  }*/
+
+  navigator.getMedia(
+    {
+      video: true,
+      audio: false
+    },
+    function(stream) {
+      if (navigator.mozGetUserMedia) {
+        video.mozSrcObject = stream;
+      } else {
+        var vendorURL = window.URL || window.webkitURL;
+        video.src = vendorURL.createObjectURL(stream);
+      }
+      video.play();
+    },
+    function(err) {
+      console.log("An error occured! " + err);
+    }
+  );
+
+  video.addEventListener('canplay', function(ev){
+    if (!streaming) {
+      height = video.videoHeight / (video.videoWidth/width);
+      video.setAttribute('width', width);
+      video.setAttribute('height', height);
+      canvas.setAttribute('width', width);
+      canvas.setAttribute('height', height);
+      streaming = true;
+    }
+  }, false);
+
+  function takepicture() {
+    canvas.width = width;
+    canvas.height = height;
+    canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+    var data = canvas.toDataURL('image/png');
+    photo.setAttribute('src', data);
+  }
+
+  startbutton.addEventListener('click', function(ev){
+      takepicture();
+    ev.preventDefault();
+  }, false);
+
+
+
+})();
+
+
+
+
+
+</script>
+
+
+
+
+
+</body>
+</html>

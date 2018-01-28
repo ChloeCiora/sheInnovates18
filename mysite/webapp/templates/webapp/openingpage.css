@@ -1,0 +1,22 @@
+
+body,h1 {
+	font-family: "Raleway",sans-serif
+	color: "black";
+}
+body, html {
+	height: 100%
+}
+.bgimg {
+    background-image: url("cityscene.png"); 
+    background-image: opacity: 0.5;
+    
+);
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+
+.block{
+
+	background-color="pink";
+}
