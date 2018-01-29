@@ -42,13 +42,3 @@ def google(request):
 	name = translation['translatedText']
 	args = {'myName':name}
 	return render(request, 'webapp/template2.html', args)
-
-'''
-print(answer1)
-print(prob1*100)
-print(u'Translation: {}'.format(translation1['translatedText']))
-print(answer2)
-print(u'Translation: {}'.format(translation2['translatedText']))
-print(answer3)
-print(u'Translation: {}'.format(translation3['translatedText']))
-'''
