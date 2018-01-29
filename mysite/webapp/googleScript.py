@@ -31,36 +31,17 @@ def google(request):
 	response = vision_client.label_detection(image=image)
 	labels = response.label_annotations
 
-	#for label in labels:
-	#    print(label.description)
-
-	answer1 = labels[0].description
-	answer2 = labels[1].description
-	answer3 = labels[2].description
-
-	prob1 = labels[0].score
 
 	# The target language
 	target = 'es'
 
-	# Translates some text into turkish
-	translation1 = translate_client.translate(
-	    answer1,
+	# Translates some text into spanish
+	translation = translate_client.translate(
+	    labels[0].description,
 	    target_language=target)
-
-	translation2 = translate_client.translate(
-	    answer2,
-	    target_language=target)
-
-	translation3 = translate_client.translate(
-	    answer3,
-	    target_language=target)
-
-	#return HttpResponse("<h2> This is your translation: " + translation1['translatedText'] + "</h2>")
-	name = translation1['translatedText']
+	name = translation['translatedText']
 	args = {'myName':name}
 	return render(request, 'webapp/template2.html', args)
-
 
 '''
 print(answer1)
